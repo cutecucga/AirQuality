@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "282894428390",
+    "firebase_url": "https://air-quality-lanh-6e2d0.firebaseio.com",
+    "project_id": "air-quality-lanh-6e2d0",
+    "storage_bucket": "air-quality-lanh-6e2d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282894428390:android:bbdcb3f1a8fa939a6a7327",
+        "android_client_info": {
+          "package_name": "com.lanhnh.airquality"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282894428390-idvaqm5l2j5moamm9ngnqniue0mte3qg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lanhnh.airquality",
+            "certificate_hash": "4ae239255891db6db98eab7a4ddbca359c7bd4ec"
+          }
+        },
+        {
+          "client_id": "282894428390-8bcipueckbg2364nuhtk5uahkeb1ctku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcsUIDv4kcIRvt2EUhLwMiLmSqVsYQKqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282894428390-8bcipueckbg2364nuhtk5uahkeb1ctku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
