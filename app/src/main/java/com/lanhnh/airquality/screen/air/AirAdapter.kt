@@ -20,12 +20,6 @@ class AirAdapter(
         return AirItem(view, onItemClick)
     }
 
-    fun setData(data: MutableList<Air>) {
-        listData.clear()
-        listData.addAll(data)
-        notifyDataSetChanged()
-    }
-
     public fun insert(data: Air, position: Int = FIRST) {
         listData.add(position, data)
         notifyItemRangeInserted(position, 1)
@@ -50,8 +44,8 @@ class AirAdapter(
             fun bindData(item: Air) {
                 itemView.run {
                     tv_time.text = item.time
-                    tv_dust.text = item.dust.toString()
-                    tv_air_quality.text = item.airQuality.toString()
+                    tv_dust.text = "%.2f".format(item.dust)
+                    tv_air_quality.text = "%.2f".format(item.airQuality)
                     ll_bg_item.background =
                         if (item.dust >= WARNING_DUST || item.airQuality >= WARNING_AIR_QUALITY)
                             ContextCompat.getDrawable(context, R.drawable.bg_orange)

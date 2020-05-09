@@ -48,7 +48,7 @@ class DetailActivity : AppCompatActivity() {
                     val airQuality = it.child("data-device").child("1").value
                     itemList.add(Air(id, deviceId, dust, airQuality.toString().toDouble(), time))
                 }
-                airAdapter?.setData(itemList)
+                airAdapter?.notifyDataSetChanged();
             }
 
             override fun onCancelled(error: DatabaseError) {
