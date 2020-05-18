@@ -37,6 +37,8 @@ class AirAdapter(
         const val FIRST = 0
         const val WARNING_DUST = 2
         const val WARNING_AIR_QUALITY = 2
+        const val WARNING_DUST_BEST = 50
+        const val WARNING_AIR_QUALITY_BEST = 50
 
         class AirItem(itemView: View, private var onItemClick: ((Air?) -> Unit)?) :
             RecyclerView.ViewHolder(itemView) {
@@ -47,9 +49,11 @@ class AirAdapter(
                     tv_dust.text = "%.2f".format(item.dust)
                     tv_air_quality.text = "%.2f".format(item.airQuality)
                     ll_bg_item.background =
-                        if (item.dust >= WARNING_DUST || item.airQuality >= WARNING_AIR_QUALITY)
+                        if (item.dust < WARNING_DUST && item.airQuality < WARNING_AIR_QUALITY)
+                            ContextCompat.getDrawable(context, R.drawable.bg_green)
+                        else if ((item.dust > WARNING_DUST_BEST)||(item.airQuality > WARNING_AIR_QUALITY_BEST))
                             ContextCompat.getDrawable(context, R.drawable.bg_orange)
-                        else ContextCompat.getDrawable(context, R.drawable.bg_purple)
+                        else    ContextCompat.getDrawable(context, R.drawable.bg_purple)
                     setOnClickListener {
                         onItemClick?.invoke(item)
                     }

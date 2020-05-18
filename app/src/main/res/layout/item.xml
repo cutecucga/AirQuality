@@ -52,14 +52,14 @@
                         android:layout_height="40dp"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_foggy" />
+                        android:src="@drawable/air" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
 
-                        android:text="PM 2.5"
+                        android:text="Khí độc"
                         android:textColor="#ffff"
                         android:textSize="13sp" />
 
@@ -103,14 +103,14 @@
                         android:layout_height="40dp"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center"
-                        android:src="@drawable/air" />
+                        android:src="@drawable/ic_foggy" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
 
-                        android:text="Khí độc"
+                        android:text="PM2.5"
                         android:textColor="#ffff"
                         android:textSize="13sp" />
 
