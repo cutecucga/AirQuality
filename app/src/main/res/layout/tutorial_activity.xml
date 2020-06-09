@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="THÔNG TIN ỨNG DỤNG" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:text="CẢNH BÁO Ô NHIỄM KHÔNG KHÍ"
+                android:textColor="#272419"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="      Bụi mịn PM2.5 là loại bụi mịn có đường kính nhỏ hơn 2.5 μm. Các loại bụi mịn như PM2.5 chủ yếu sản sinh ra từ khí thải giao thông (các loại xe cơ giới nhất là xe chạy bằng dầu diesel), nhà máy công nghiệp, nhà máy điện, công trường xây dựng, khói do đốt rác, đốt gỗ, phấn hoa, chất thải công trường,..."
+                android:textColor="#272419"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="     Bên cạnh các khí thải độc hại như SO2, NO2, CO,... bụi mịn và bụi siêu mịn là một trong các tác nhân gây ô nhiễm không khí hàng đầu hiện nay
+Theo khuyến cáo của WHO bụi siêu mịn PM2.5 gây ra rất nhiều tác hại đến sức khỏe con người. Bụi PM2.5 xâm nhập vào tế bào theo đường máu chúng sẽ phá hủy cơ chế tự miễn dịch của cơ thể gây nhiều bệnh cấp tính và tổn thương vĩnh viễn đến các cơ quan quan trọng như phổi, tim
+    "
+                android:textColor="#272419" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="   Theo WHO, chỉ số PM2.5 nhỏ hơn 10 µg/m3 (tương đương chỉ số AQI mức 50)  được coi là mức an toàn.
+ở mức 10-50 µg/m3 (tương đương chỉ số AQI  50-200) được gọi là mức ô nhiễm ảnh hưởng xấu đến nhóm người nhạy cảm đường hô hấp, ở mức trên 50 µg/m3
+ được gọi là mức ô nhiễm nghiêm trọng, tác động nặng nề đến sức khỏe con người.
+   "
+                android:textColor="#272419" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="   Ứng dụng đưa ra dữ liệu được cập nhật thời gian thực theo cảm biến chất lượng không khí MQ5 và cảm biến bụi GP2Y10 được đặt rải rác trên các trục đường chính của thành phố Đà Nẵng."
+                android:textColor="#272419" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Các mức cảnh báo trên ứng dụng"
+                android:textColor="#272419"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Mức không khí bình thường (Chỉ số PM2.5 hoặc khí độc nhỏ hơn 10 µg/m3)"
+                android:textColor="#272419"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/green" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Mức không khí không bị ô nhiễm (Chỉ số PM2.5 hoặc khí độc lớn hơn 10 µg/m3 và nhỏ hơn 50 µg/m3)"
+                android:textColor="#272419"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/purple" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Mức không khí bị ô nhiễm nghiêm trọng (Chỉ số PM2.5 hoặc khí độc lớn hơn 50 µg/m3)"
+                android:textColor="#272419"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/orange" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Các màu sắc thể hiện trên bản đồ"
+                android:textColor="#272419"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Mức không khí bình thường"
+                android:textColor="#272419"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/marker_green" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Mức không khí bị ô nhiễm"
+                android:textColor="#272419"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/marker_purple" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Mức không khí bị ô nhiễm nghiêm trọng"
+                android:textColor="#272419"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/marker_orange" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

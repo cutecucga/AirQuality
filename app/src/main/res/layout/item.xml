@@ -82,13 +82,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="8dp"
-                            android:text="mg/m3"
+                            android:text="μg/m3"
                             android:textSize="15dp" />
                     </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -133,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="8dp"
-                            android:text="mg/m3"
+                            android:text="μg/m3"
                             android:textSize="15dp" />
                     </LinearLayout>
                 </LinearLayout>

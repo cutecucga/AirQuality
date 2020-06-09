@@ -35,8 +35,8 @@ class AirAdapter(
 
     companion object {
         const val FIRST = 0
-        const val WARNING_DUST = 2
-        const val WARNING_AIR_QUALITY = 2
+        const val WARNING_DUST = 10
+        const val WARNING_AIR_QUALITY = 10
         const val WARNING_DUST_BEST = 50
         const val WARNING_AIR_QUALITY_BEST = 50
 

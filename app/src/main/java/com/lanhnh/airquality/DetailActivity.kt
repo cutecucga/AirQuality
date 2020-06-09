@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
 
-    private var title: String = "device-id-1"
+    private var deviceID : String = "device-id-1"
     private var itemList = mutableListOf<Air>()
     private var airAdapter: AirAdapter? = null
 
@@ -24,7 +24,9 @@ class DetailActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         if (bundle != null) {
-            title = bundle.getString(MainActivity.EXTRA_TITLE, "")
+            val title = bundle.getString(MainActivity.EXTRA_TITLE, "")
+            toolbar.title = title
+            deviceID = bundle.getString(MainActivity.EXTRA_DEVICE_ID, "")
         }
         airAdapter = AirAdapter(this, itemList) { air ->
             itemClick(air)
@@ -37,16 +39,17 @@ class DetailActivity : AppCompatActivity() {
         }
 
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("data").child(title)
+        val myRef = database.getReference("data").child(deviceID)
         val childEventListener = object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.value)
-                val id = dataSnapshot.child("id").value as Long
+                val id = (dataSnapshot.child("id").value?: 123) as Long
                 val deviceId = dataSnapshot.child("device-id").value as String
                 val time = (dataSnapshot.child("time").value ?: "") as String
                 val dust = (dataSnapshot.child("data-device").child("0").value ?: 0.00) as Double
                 val airQuality = dataSnapshot.child("data-device").child("1").value ?: 0.00
                 airAdapter?.insert(Air(id, deviceId, dust, airQuality.toString().toDouble(), time))
+                rv_air_quality.scrollToPosition(0)
             }
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {
@@ -68,24 +71,6 @@ class DetailActivity : AppCompatActivity() {
             }
         }
         myRef.addChildEventListener(childEventListener)
-
-//        myRef.addChildEventListener((object : ChildEventListener) {
-//
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                dataSnapshot.children.forEach {
-//                    val id = it.child("id").value as Long
-//                    val deviceId = it.child("device-id").value as String
-//                    val time = it.child("time").value as String
-//                    val dust = it.child("data-device").child("0").value as Double
-//                    val airQuality = it.child("data-device").child("1").value
-//                    itemList.add(Air(id, deviceId, dust, airQuality.toString().toDouble(), time))
-//                }
-//                airAdapter?.notifyDataSetChanged();
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//            }
-//        })
     }
 
     private fun itemClick(air: Air?) {
@@ -93,6 +78,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "DetailActivity"
+        const val TAG = "DetailActivity"
     }
 }
