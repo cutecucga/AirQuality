@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">AirQuality</string>
     <string name="tutorial">Tutorial</string>
+    <string name="search">Search</string>
+    <string name="google_directions_key">AIzaSyBmVlNF-IAzEjvQ8lv_n70N-BO1my8EWXU</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

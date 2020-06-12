@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.location.Address
 import android.location.Geocoder
@@ -12,6 +13,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
@@ -21,14 +24,19 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.firebase.database.*
+import com.google.maps.android.PolyUtil
 import com.lanhnh.airquality.data.model.Device
+import com.lanhnh.airquality.data.model.DirectionResponses
+import com.lanhnh.airquality.extentions.safeClick
+import com.lanhnh.airquality.google.GoogleAPIService
+import com.lanhnh.airquality.google.RetrofitClient
 import com.lanhnh.airquality.screen.air.TutorialActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 
 class MainActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
@@ -45,6 +53,22 @@ class MainActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener, OnMap
     private var isAllowAccessLocation = false
     private var locationUpdateState = false
     private lateinit var locationRequest: LocationRequest
+    private var polylineList = mutableListOf<LatLng>()
+    private var v: Float? = null
+    private var lat: Double? = null
+    private var lng: Double? = null
+    private var startPosition: LatLng? = null
+    private var endPosition: LatLng? = null
+    private var index: Int = 0
+    private var next: Int = 0
+    private lateinit var polylineOptions: PolylineOptions
+    private lateinit var blackPolylineOptions: PolylineOptions
+    private lateinit var blackPolyline: Polyline
+    private lateinit var greyPolyline: Polyline
+    private lateinit var googleAPIService: GoogleAPIService
+    private var destination: String = ""
+    private var polyline: Polyline? = null
+    private var destinationPosition: Polyline? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,6 +145,58 @@ class MainActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener, OnMap
         }
         createLocationRequest()
         setSupportActionBar(toolbar)
+        onClickListener()
+        googleAPIService = RetrofitClient.create()
+    }
+
+    private fun onClickListener() {
+        btn_search.safeClick {
+            val text = et_search.text.toString()
+            if (text.isNotEmpty()) {
+                destination = text
+                destination = destination.replace(" ", "+")
+                searchDirection(destination)
+            }
+        }
+    }
+
+    private fun searchDirection(destination: String) {
+        val requestURL =
+            "https://maps.googleapis.com/maps/api/directions/json?" + "mode=drivings&" + "transit_routing_preference=less_driving&" + "origin=" + myLocation.latitude + "," + myLocation.longitude + "&destination=" + destination + "&" + "key=" + resources.getString(
+                R.string.google_directions_key
+            )
+        val from = myLocation.latitude.toString() + "," + myLocation.longitude
+        val key = resources.getString(R.string.google_app_id)
+        googleAPIService.getDirection(requestURL)
+            .enqueue(object : Callback<DirectionResponses> {
+                override fun onResponse(
+                    call: Call<DirectionResponses>,
+                    response: Response<DirectionResponses>
+                ) {
+                    drawPolyline(response)
+                    Log.d("GG MAP API SUCCESS", response.message())
+                }
+
+                override fun onFailure(call: Call<DirectionResponses>, t: Throwable) {
+                    Log.e("GG MAP API ERROR", t.localizedMessage)
+                }
+            })
+    }
+
+    private fun drawPolyline(response: Response<DirectionResponses>) {
+        this.polyline?.remove()
+        response.body()?.routes?.let { routes ->
+            if (routes.isNotEmpty()) {
+                val shape = routes[0]?.overviewPolyline?.points
+                val polylineOptions = PolylineOptions()
+                    .addAll(PolyUtil.decode(shape))
+                    .width(8f)
+                    .color(Color.RED)
+                this.polyline = googleMap.addPolyline(polylineOptions)
+            } else {
+                Toast.makeText(this, "Không tìm thấy địa chỉ này!", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun createMarkers(vararg devices: Device) {
@@ -176,6 +252,10 @@ class MainActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener, OnMap
             R.id.action_tutorial -> {
                 startActivity(Intent(this@MainActivity, TutorialActivity::class.java))
                 return true
+            }
+            R.id.action_search -> {
+                ll_search_view.visibility =
+                    if (ll_search_view.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             }
         }
         return super.onOptionsItemSelected(item)
@@ -244,6 +324,13 @@ class MainActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener, OnMap
 
     override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
+        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+        googleMap.isTrafficEnabled = false
+        googleMap.isIndoorEnabled = false
+        googleMap.isBuildingsEnabled = false
+        googleMap.uiSettings.isZoomControlsEnabled = true
+
+
         googleMap.setOnMarkerClickListener(this)
         googleMap.setOnInfoWindowClickListener {
             it.let { snippet ->
